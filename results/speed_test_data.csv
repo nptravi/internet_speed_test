@@ -1,0 +1,6 @@
+timestamp,download_speed_mbps,upload_speed_mbps,ping_ms,server_name,server_location,bytes_sent,bytes_received
+2025-10-31 15:19:19,1.50,6.59,272.944,Vi India,Bengaluru - India,8380416,2159896
+2025-10-31 15:31:05,2.99,1.33,41.173,Tata Teleservices Ltd,Bangalore - India,17571840,3923768
+2025-10-31 15:56:09,2.36,6.75,186.938,Jio,Bangalore - India,84508672,2965812
+2025-10-31 21:47:04,2.14,8.81,67.988,HCIN Network Ltd,Bangalore - India,112992256,27319792
+2025-10-31 21:54:12,19.69,91.29,170.361,HCIN Network Ltd,Bangalore - India,116457472,25394948
