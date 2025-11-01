@@ -21,11 +21,12 @@ def speed_test():
     st_results = st.results.dict()
 
     dt= {"timestamp": start_time.strftime("%Y-%m-%d %H:%M:%S"),
-         "download_speed_mbps": down_speed,
-         "upload_speed_mbps": up_speed,
-         "ping_ms": st_results["ping"],
-         "server_name": st_results["server"]["sponsor"],
-         "server_location": f"""{st_results["server"]["name"]} - {st_results["server"]["country"]}""",
+         "download_speed": down_speed,
+         "upload_speed": up_speed,
+         "ping": st_results["ping"],
+         "isp": f"{st_results['client']['isp']} ({st_results['client']['country']})",
+         "server": f"{st_results['server']['sponsor']} ({st_results['server']['name']} "
+                   f"- {st_results['server']['country']})",
          "bytes_sent": st_results["bytes_sent"],
          "bytes_received": st_results["bytes_received"]}
     csv_file_name =os.path.join("results","speed_test_data.csv")

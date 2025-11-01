@@ -4,40 +4,37 @@ import pandas as pd
 
 CSV_PATH = os.path.join("results", "speed_test_data.csv")
 
-def get_lastest():
-    dt = pd.read_csv(CSV_PATH, parse_dates=["timestamp"])
-    latest = dt.sort_values(by=["timestamp"], ascending=False, inplace=False).iloc[0].to_dict()
-    latest["timestamp"] = latest["timestamp"].to_pydatetime()
-    return latest
 def get_results():
     dt = pd.read_csv(CSV_PATH, parse_dates=["timestamp"])
     latest = dt.sort_values(by=["timestamp"], ascending=True, inplace=False).iloc[-1].to_dict()
     latest["timestamp"] = latest["timestamp"].to_pydatetime()
-    results = {"latest": latest}
-    download_speeds = dt.set_index("timestamp")["download_speed_mbps"].to_dict()
-    upload_speeds = dt.set_index("timestamp")["upload_speed_mbps"].to_dict()
-    ping_ms = dt.set_index("timestamp")["ping_ms"].to_dict()
-    results["download_speeds"] = {
-        "average": sum(download_speeds.values()) / len(download_speeds.values()),
-        "max": max(download_speeds.values()),
-        "min": min(download_speeds.values()),
-        "latest": latest["download_speed_mbps"],
-        "values": download_speeds.values()
+    results = {"latest": latest,
+        "download_speed": {
+            "average": dt["download_speed"].mean(),
+            "max": dt["download_speed"].max(),
+            "min": dt["download_speed"].min(),
+            "latest": dt["download_speed"].iloc[-1]},
+        "upload_speed": {
+            "average": dt["upload_speed"].mean(),
+            "max": dt["upload_speed"].max(),
+            "min": dt["upload_speed"].min(),
+            "latest": dt["upload_speed"].iloc[-1]},
+        "ping": {
+            "average": dt["ping"].mean(),
+            "max": dt["ping"].max(),
+            "min": dt["ping"].min(),
+            "latest": dt["ping"].iloc[-1],
+            "values": dt[["timestamp", "ping"]]},
+        "values": dt[["timestamp", "download_speed", "upload_speed", "ping"]]
     }
-    results["upload_speeds"] = {
-        "average": sum(upload_speeds.values()) / len(upload_speeds.values()),
-        "max": max(upload_speeds.values()),
-        "min": min(upload_speeds.values()),
-        "latest": latest["upload_speed_mbps"]
-    }
-    results["ping_ms"] = {
-        "average": sum(ping_ms.values()) / len(ping_ms.values()),
-        "max": max(ping_ms.values()),
-        "min": min(ping_ms.values()),
-        "latest": latest["ping_ms"]
-    }
+
     return results
 
 if __name__ == "__main__":
-    print(get_results())
+    res = get_results()
+    print(f"latest: {res['latest']}")
+    print(f"download_speeds: {res['download_speed']}")
+    print(f"upload_speeds: {res['upload_speed']}")
+    print(f"ping_ms: {res['ping']}")
+    print(f"values: {res['values']}")
 
