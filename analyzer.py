@@ -6,8 +6,9 @@ CSV_PATH = os.path.join("results", "speed_test_data.csv")
 
 def get_results():
     dt = pd.read_csv(CSV_PATH, parse_dates=["timestamp"])
+    dt['timestamp'] = pd.to_datetime(dt['timestamp'])
     latest = dt.sort_values(by=["timestamp"], ascending=True, inplace=False).iloc[-1].to_dict()
-    latest["timestamp"] = latest["timestamp"].to_pydatetime()
+    latest["timestamp"] = latest["timestamp"]
     results = {"latest": latest,
         "download_speed": {
             "average": dt["download_speed"].mean(),
@@ -25,7 +26,7 @@ def get_results():
             "min": dt["ping"].min(),
             "latest": dt["ping"].iloc[-1],
             "values": dt[["timestamp", "ping"]]},
-        "values": dt[["timestamp", "download_speed", "upload_speed", "ping"]]
+        "values": dt[["timestamp", "download_speed", "upload_speed", "ping","isp","server"]]
     }
 
     return results

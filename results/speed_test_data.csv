@@ -1,9 +1,11 @@
 timestamp,download_speed,upload_speed,ping,isp,server,bytes_sent,bytes_received
-2025-11-01 20:26:06,19.64,73.76,190.341,Jio (IN),Jio (Bangalore - India),92340224,25261552
-2025-11-01 20:39:37,19.7,62.06,341.554,Jio (IN),Powergrid Corporation of India Ltd (Bengaluru - India),78110720,24708592
-2025-11-01 21:01:48,15.35,77.24,227.476,Jio (IN),Surround Networks (Bengaluru - India),99147776,22200344
-2025-11-01 21:08:57,14.69,73.71,204.693,Jio (IN),Excitel (Bangalore - India),92250112,18544664
+2025-09-01 20:26:06,19.64,73.76,190.341,Jio (IN),Jio (Bangalore - India),92340224,25261552
+2025-09-11 20:39:37,19.7,62.06,341.554,Jio (IN),Powergrid Corporation of India Ltd (Bengaluru - India),78110720,24708592
+2025-10-11 21:01:48,15.35,77.24,227.476,Jio (IN),Surround Networks (Bengaluru - India),99147776,22200344
+2025-10-21 21:08:57,14.69,73.71,204.693,Jio (IN),Excitel (Bangalore - India),92250112,18544664
 2025-11-01 21:14:30,20.89,64.02,154.388,Jio (IN),Excitel (Bangalore - India),80175104,26777072
 2025-11-01 21:19:58,21.06,54.32,170.607,Jio (IN),I-ON (Bengaluru - India),78888960,26725872
 2025-11-01 21:21:51,21.17,83.3,169.267,Jio (IN),Surround Networks (Bengaluru - India),104439808,26869232
 2025-11-01 21:25:52,17.58,70.45,204.68,Jio (IN),Excitel (Bangalore - India),92504064,22200344
+2025-11-02 13:17:21,7.72,71.12,187.705,Jio (IN),HCIN Network Ltd (Bangalore - India),93503488,11070016
+2025-11-02 21:09:49,1.65,58.25,201.228,Jio (IN),Powergrid Corporation of India Ltd (Bengaluru - India),72949760,2241444
