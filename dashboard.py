@@ -1,31 +1,17 @@
 from datetime import datetime, timedelta
 from inspect import stack
-
 import pandas as pd
 import streamlit as st
 from dateutil.relativedelta import relativedelta
-
 import analyzer
-import speed_tester
 import altair as alt
-import socket
+
 
 speedtest_result = analyzer.get_results()
 speedtest_data = speedtest_result['values']
 selected_filter = 'ALL'
 
-def check_now():
-    global selected_filter, speedtest_data, speedtest_result
-    placeholder = st.empty()
-    with placeholder.container():
-        st.image(image="images/spinner.gif",caption="Speed test in progress...")
-        st.markdown("## Testing internet speed, please wait...")
-        speed_tester.speed_test()
-        speedtest_result = analyzer.get_results()
-        speedtest_data = speedtest_result['values']
-        selected_filter = st.session_state['filter_box']
-    placeholder.empty()  # remove spinner
-    st.success("✅ Speed test completed!")
+
 
 
 def apply_filter():
@@ -108,16 +94,10 @@ col_metric_ping_ms.metric(label="",
                        - speedtest_result["ping"]["average"],2),
             chart_data = speedtest_result["values"][["timestamp","ping"]].set_index("timestamp"))
 col_test_count.markdown("### 🔢 Tests Count")
-# col_test_count.markdown(" ###")
-#col_test_count.markdown(f"<div style='text-align: center; font-size: 64px; border: 1px solid lightgray'>{speedtest_result['download_speeds']['values']['timestamp'].count()}</div>",
-#                        unsafe_allow_html=True)
 
 col_test_count.metric(label="",
            value=speedtest_result["values"][["timestamp"]].count())
-host_name = socket.gethostbyname(socket.gethostname())
-is_localhost = host_name.startswith("localhost") or host_name.startswith("127.0.0.1")
-if is_localhost:
-    col_test_count.button(label="Check now", key="check_now", on_click=check_now)
+
 content_pane.write(f"ISP: {speedtest_result['latest']['isp']}")
 content_pane.write(f"Server: {speedtest_result['latest']['server']}")
 content_pane.write(f"last test: {speedtest_result['latest']['timestamp']}")
