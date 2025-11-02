@@ -1,6 +1,12 @@
+from inspect import stack
+
 import streamlit as st
+from numpy.ma.core import filled
+from streamlit import title
+
 import analyzer
 import speed_tester
+import altair as alt
 
 
 def check_now():
@@ -60,6 +66,16 @@ content_pane.write(f"ISP: {speedtest_result['latest']['isp']}")
 content_pane.write(f"Server: {speedtest_result['latest']['server']}")
 content_pane.write(f"last test: {speedtest_result['latest']['timestamp']}")
 
-speed_dtf = speedtest_result["values"][['timestamp','download_speed','upload_speed']].set_index('timestamp')
+speed_dtf = speedtest_result["values"][['timestamp','download_speed','upload_speed']]
+speed_dtf = speed_dtf.melt('timestamp', var_name="speed_type",value_name="speed")
+base_chart = alt.Chart(speed_dtf).encode(
+    x=alt.X('timestamp:T',title='timetamp'),
+    y=alt.Y('speed:Q', title='speed', stack='zero'),
+    color=alt.Color('speed_type:N',scale=alt.Scale(range=['blue','brown'])),
+    order=alt.Order('speed_type:N'))
+area_chart = (base_chart.mark_area(opacity=0.4)
+              .encode(tooltip=['timestamp','speed','speed_type']))
+point_chart = (base_chart.mark_point(filled=True, size=60)
+              .encode(tooltip=['timestamp','speed','speed_type']))
 content_pane.subheader("Speed Chart")
-content_pane.area_chart(data=speed_dtf,x_label="Timestamp",y_label="Speed (Mbps)")
+content_pane.altair_chart(area_chart+point_chart, use_container_width=True,on_select='ignore')
