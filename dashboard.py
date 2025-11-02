@@ -6,7 +6,7 @@ import streamlit as st
 from dateutil.relativedelta import relativedelta
 
 import analyzer
-import speed_tester
+#import speed_tester
 import altair as alt
 import socket
 
@@ -20,7 +20,7 @@ def check_now():
     with placeholder.container():
         st.image(image="images/spinner.gif",caption="Speed test in progress...")
         st.markdown("## Testing internet speed, please wait...")
-        speed_tester.speed_test()
+        #speed_tester.speed_test()
         speedtest_result = analyzer.get_results()
         speedtest_data = speedtest_result['values']
         selected_filter = st.session_state['filter_box']
